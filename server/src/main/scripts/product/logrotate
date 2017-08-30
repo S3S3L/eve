@@ -1,0 +1,17 @@
+/workspace/carkey/AppHelloBikeInternalAuthService/logs/*log
+/workspace/carkey/AppHelloBikeInternalAuthService/logs/*.out
+{
+    missingok
+    size 100M
+    copytruncate
+    rotate 4
+    dateext
+    dateformat -%Y-%m-%d-%s
+    notifempty
+    compress
+    create 0600 root root
+    sharedscripts
+    postrotate
+        /workspace/carkey/AppHelloBikeInternalAuthService/latest/backuplog.sh || true
+    endscript
+}

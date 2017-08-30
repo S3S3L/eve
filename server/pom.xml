@@ -1,0 +1,125 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>eve-server</artifactId>
+    <packaging>jar</packaging>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.5.4</version><!--$NO-MVN-MAN-VER$-->
+                <executions>
+                    <execution>
+                        <id>eve-server</id>
+                        <phase>package</phase><!-- 绑定到 PACKAGE 生命周期阶段 -->
+                        <goals>
+                            <goal>single</goal><!-- 在 PACKAGE 生命周期阶段仅执行一次 -->
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <finalName>EveHelperServer</finalName>
+                    <descriptors>
+                        <descriptor>src/main/assembly/assembly.xml</descriptor>
+                        <!-- 自定义打包的配置文件 -->
+                    </descriptors>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <!-- 设为 FALSE, 防止 WAR 包名加入 assembly.xml 中的 ID -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <parent>
+        <groupId>com.s3s3l.eve</groupId>
+        <artifactId>eve-parent</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+    </parent>
+
+    <profiles>
+        <profile>
+            <id>localTest</id>
+            <properties>
+                <env>localTest</env>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>master</id>
+            <properties>
+                <env>product</env>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.s3s3l</groupId>
+            <artifactId>s3s3l-web</artifactId>
+        </dependency>
+    </dependencies>
+
+    <!-- 内部Maven服务器地址 -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>archjava</id>
+            <url>${nexus.url}/content/repositories/carkey-archjava-snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>archjava</id>
+            <url>${nexus.url}/content/repositories/carkey-archjava-release/</url>
+        </repository>
+    </distributionManagement>
+</project>
