@@ -9,7 +9,13 @@
 
 package com.s3s3l.eve.configuration;
 
-import com.s3s3l.app.component.annotation.Configuration;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+
+import com.s3s3l.eve.model.enumetrations.EnumHttpMethod;
 
 /**
  * <p>
@@ -21,15 +27,94 @@ import com.s3s3l.app.component.annotation.Configuration;
  * @version 1.0.0
  * @since JDK 1.8
  */
-@Configuration(resources = { "file:config/sso.yml", "classpath:config/sso.yml" })
+@Configuration
+@ConfigurationProperties(prefix = "sso")
 public class SSOConfiguration {
 
     private String endPoint;
     private String responseType;
     private String redirectUri;
     private String clientId;
-    private String scope;
+    private String secretKey;
     private String state;
+    private Interfaces interfaces;
+    private List<String> scopes;
+    private String requestVerificationToken;
+    private String characterId;
+    private String authorization;
+
+    public static class Interfaces {
+        private Interface auth;
+        private Interface token;
+        private Interface refreshToken;
+        private Interface obtainCharacter;
+
+        public Interface getAuth() {
+            return auth;
+        }
+
+        public void setAuth(Interface auth) {
+            this.auth = auth;
+        }
+
+        public Interface getToken() {
+            return token;
+        }
+
+        public void setToken(Interface token) {
+            this.token = token;
+        }
+
+        public Interface getRefreshToken() {
+            return refreshToken;
+        }
+
+        public void setRefreshToken(Interface refreshToken) {
+            this.refreshToken = refreshToken;
+        }
+
+        public Interface getObtainCharacter() {
+            return obtainCharacter;
+        }
+
+        public void setObtainCharacter(Interface obtainCharacter) {
+            this.obtainCharacter = obtainCharacter;
+        }
+    }
+
+    public static class Interface {
+        private String path;
+        private EnumHttpMethod method;
+
+        public String getUrl(String endPoint) {
+            if (StringUtils.isEmpty(endPoint) || StringUtils.isEmpty(path)) {
+                return endPoint;
+            }
+            if (endPoint.endsWith("/") && path.endsWith("/")) {
+                return endPoint.concat(path.replaceFirst("/", ""));
+            }
+            if (!endPoint.endsWith("/") && !path.endsWith("/")) {
+                return endPoint.concat("/").concat(path);
+            }
+            return endPoint.concat(path);
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public void setPath(String path) {
+            this.path = path;
+        }
+
+        public EnumHttpMethod getMethod() {
+            return method;
+        }
+
+        public void setMethod(EnumHttpMethod method) {
+            this.method = method;
+        }
+    }
 
     public String getEndPoint() {
         return endPoint;
@@ -63,12 +148,12 @@ public class SSOConfiguration {
         this.clientId = clientId;
     }
 
-    public String getScope() {
-        return scope;
+    public String getSecretKey() {
+        return secretKey;
     }
 
-    public void setScope(String scope) {
-        this.scope = scope;
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
     }
 
     public String getState() {
@@ -77,5 +162,45 @@ public class SSOConfiguration {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public Interfaces getInterfaces() {
+        return interfaces;
+    }
+
+    public void setInterfaces(Interfaces interfaces) {
+        this.interfaces = interfaces;
+    }
+
+    public List<String> getScopes() {
+        return scopes;
+    }
+
+    public void setScopes(List<String> scopes) {
+        this.scopes = scopes;
+    }
+
+    public String getRequestVerificationToken() {
+        return requestVerificationToken;
+    }
+
+    public void setRequestVerificationToken(String requestVerificationToken) {
+        this.requestVerificationToken = requestVerificationToken;
+    }
+
+    public String getCharacterId() {
+        return characterId;
+    }
+
+    public void setCharacterId(String characterId) {
+        this.characterId = characterId;
+    }
+
+    public String getAuthorization() {
+        return authorization;
+    }
+
+    public void setAuthorization(String authorization) {
+        this.authorization = authorization;
     }
 }

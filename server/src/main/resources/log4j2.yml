@@ -1,0 +1,130 @@
+Configuration:
+  status: info
+  properties:
+    property:
+      name: logPath
+      value: logs
+  Appenders:
+    Console:
+      name: consoleAppender
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: '[%p] %d{yyyy-MMM-dd HH:mm:ss} - %m%n'
+    File:
+    - name: serverAppender
+      fileName: ${logPath}/server.log
+      PatternLayout:
+        pattern: '[%p] %d{yyyy-MMM-dd HH:mm:ss} - %m%n'
+      Policies:
+        TimeBasedTriggeringPolicy:
+          interval: 1
+          modulate: true
+    - name: errorAppender
+      fileName: ${logPath}/error.log
+      PatternLayout:
+        pattern: '[%p] %d{yyyy-MMM-dd HH:mm:ss} - %m%n'
+      Policies:
+        TimeBasedTriggeringPolicy:
+          interval: 1
+          modulate: true
+    - name: commonAppender
+      fileName: ${logPath}/common.log
+      PatternLayout:
+        pattern: '[%p] %d{yyyy-MMM-dd HH:mm:ss} - %m%n'
+      Policies:
+        TimeBasedTriggeringPolicy:
+          interval: 1
+          modulate: true
+    - name: requestAppender
+      fileName: ${logPath}/request.log
+      PatternLayout:
+        pattern: '[%p] %d{yyyy-MMM-dd HH:mm:ss} - %m%n'
+      Policies:
+        TimeBasedTriggeringPolicy:
+          interval: 1
+          modulate: true
+    - name: jobAppender
+      fileName: ${logPath}/job.log
+      PatternLayout:
+        pattern: '[%p] %d{yyyy-MMM-dd HH:mm:ss} - %m%n'
+      Policies:
+        TimeBasedTriggeringPolicy:
+          interval: 1
+          modulate: true
+    - name: taskAppender
+      fileName: ${logPath}/task.log
+      PatternLayout:
+        pattern: '[%p] %d{yyyy-MMM-dd HH:mm:ss} - %m%n'
+      Policies:
+        TimeBasedTriggeringPolicy:
+          interval: 1
+          modulate: true
+    - name: serviceAppender
+      fileName: ${logPath}/service.log
+      PatternLayout:
+        pattern: '[%p] %d{yyyy-MMM-dd HH:mm:ss} - %m%n'
+      Policies:
+        TimeBasedTriggeringPolicy:
+          interval: 1
+          modulate: true
+  Loggers:
+    Root:
+      level: info
+      AppenderRef:
+      - ref: consoleAppender
+      - ref: serverAppender
+    Logger:
+    - name: error
+      level: error
+      additivity: false
+      AppenderRef:
+      - ref: consoleAppender
+      - ref: errorAppender
+    - name: warn
+      level: warn
+      additivity: false
+      AppenderRef:
+      - ref: consoleAppender
+      - ref: commonAppender
+    - name: info
+      level: info
+      additivity: false
+      AppenderRef:
+      - ref: consoleAppender
+      - ref: commonAppender
+    - name: debug
+      level: debug
+      additivity: false
+      AppenderRef:
+      - ref: consoleAppender
+      - ref: commonAppender
+    - name: common
+      level: info
+      additivity: false
+      AppenderRef:
+      - ref: consoleAppender
+      - ref: commonAppender
+    - name: request
+      level: info
+      additivity: false
+      AppenderRef:
+      - ref: consoleAppender
+      - ref: requestAppender
+    - name: job
+      level: info
+      additivity: false
+      AppenderRef:
+      - ref: consoleAppender
+      - ref: jobAppender
+    - name: task
+      level: info
+      additivity: false
+      AppenderRef:
+      - ref: consoleAppender
+      - ref: taskAppender
+    - name: service
+      level: info
+      additivity: false
+      AppenderRef:
+      - ref: consoleAppender
+      - ref: serviceAppender

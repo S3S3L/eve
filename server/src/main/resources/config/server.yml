@@ -1,4 +1,0 @@
-port: 42081
-packages: 
-- com.s3s3l.eve.controller
-- com.s3s3l.eve.filter

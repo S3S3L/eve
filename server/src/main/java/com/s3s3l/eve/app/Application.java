@@ -9,10 +9,17 @@
 
 package com.s3s3l.eve.app;
 
-import com.s3s3l.app.component.context.ComponentConfigurationContext;
-import com.s3s3l.web.app.DefaultWebApplication;
-import com.s3s3l.web.app.annotation.ScanPackages;
-import com.s3s3l.web.filter.CharacterEncodingFilter;
+import java.io.File;
+import java.util.Properties;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.ContextIdApplicationContextInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+
+import com.s3s3l.utils.file.FileUtil;
 
 /**
  * <p>
@@ -24,16 +31,36 @@ import com.s3s3l.web.filter.CharacterEncodingFilter;
  * @version 1.0.0
  * @since JDK 1.8
  */
-@ScanPackages("com.s3s3l.eve")
-public class Application {
+@EnableAutoConfiguration
+@ComponentScan({ "com.s3s3l.eve" })
+@SpringBootApplication
+public class Application extends ContextIdApplicationContextInitializer {
+    public static ConfigurableApplicationContext ctx;
 
-    public static ComponentConfigurationContext ctx;
+    private static final String[] LOG4J_CONFIG = new String[] { "file:config/log4j/log4j2.yml",
+            "file:conf/log4j/log4j2.yml", "file:log4j2.yml", "classpath:config/log4j/log4j2.yml",
+            "classpath:conf/log4j/log4j2.yml", "classpath:log4j2.yml" };
 
     public static void main(String[] args) throws Throwable {
-        DefaultWebApplication app = new DefaultWebApplication(Application.class);
-        CharacterEncodingFilter filter = new CharacterEncodingFilter();
-        filter.setForceEncoding(true);
-        app.addFilter(filter, "/*");
-        ctx = app.run();
+        configureLog4j();
+
+        ctx = SpringApplication.run(Application.class, args);
+        
+        System.out.println("started.");
+    }
+
+    /**
+     *
+     * 配置log4j2
+     *
+     * @since JDK 1.8
+     */
+    private static void configureLog4j() {
+        Properties props = System.getProperties();
+        props.setProperty("Log4jContextSelector", "org.apache.logging.log4j.core.async.AsyncLoggerContextSelector");
+        File configFile = FileUtil.getFirstExistFile(LOG4J_CONFIG);
+        if (configFile != null) {
+            props.setProperty("log4j.configurationFile", configFile.getAbsolutePath());
+        }
     }
 }

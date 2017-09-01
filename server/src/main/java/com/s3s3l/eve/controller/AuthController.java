@@ -9,11 +9,13 @@
 
 package com.s3s3l.eve.controller;
 
-import com.s3s3l.app.component.annotation.AutoInjected;
-import com.s3s3l.eve.configuration.SSOConfiguration;
-import com.s3s3l.web.bind.annotation.RequestMapping;
-import com.s3s3l.web.bind.annotation.RestController;
-import com.s3s3l.web.enumerations.HttpMethod;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.s3s3l.eve.service.SSOService;
 
 /**
  * <p>
@@ -28,12 +30,16 @@ import com.s3s3l.web.enumerations.HttpMethod;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-    @AutoInjected
-    private SSOConfiguration ssoConfiguration;
+    @Autowired
+    private SSOService ssoService;
 
-    @RequestMapping(url = "/callback", method = HttpMethod.GET)
-    public String greeting() {
-        return "hello,世界！".concat(ssoConfiguration.getEndPoint());
+    @RequestMapping(value = "/token", method = { RequestMethod.GET, RequestMethod.POST })
+    public Object token() throws JsonProcessingException {
+        return ssoService.getToken();
     }
 
+    @RequestMapping(value = "/character", method = { RequestMethod.GET, RequestMethod.POST })
+    public Object charactor() throws JsonProcessingException {
+        return ssoService.getCharacterInfo();
+    }
 }
