@@ -9,6 +9,8 @@
 
 package com.s3s3l.eve.controller;
 
+import com.s3s3l.app.component.annotation.AutoInjected;
+import com.s3s3l.eve.configuration.SSOConfiguration;
 import com.s3s3l.web.bind.annotation.RequestMapping;
 import com.s3s3l.web.bind.annotation.RestController;
 import com.s3s3l.web.enumerations.HttpMethod;
@@ -26,10 +28,12 @@ import com.s3s3l.web.enumerations.HttpMethod;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+    @AutoInjected
+    private SSOConfiguration ssoConfiguration;
 
-    @RequestMapping(url = "/recall", method = HttpMethod.GET)
+    @RequestMapping(url = "/callback", method = HttpMethod.GET)
     public String greeting() {
-        return "hello,世界！";
+        return "hello,世界！".concat(ssoConfiguration.getEndPoint());
     }
 
 }
