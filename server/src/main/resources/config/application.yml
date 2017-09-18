@@ -3,6 +3,10 @@ server:
 security:
   basic:
     enabled: false
+data:
+  blueprint:
+  - file:fsd/blueprints.yaml
+  - classpath:fsd/blueprints.yaml
 sso: 
   endPoint: https://login.eveonline.com
   responseType: code

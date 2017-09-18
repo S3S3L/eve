@@ -19,6 +19,7 @@ import org.springframework.boot.context.ContextIdApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
+import com.s3s3l.eve.service.SSOService;
 import com.s3s3l.utils.file.FileUtil;
 
 /**
@@ -46,6 +47,8 @@ public class Application extends ContextIdApplicationContextInitializer {
 
         ctx = SpringApplication.run(Application.class, args);
         
+        System.out.println(ctx.getBean(SSOService.class).getCharacterInfo().getCharacterID());
+
         System.out.println("started.");
     }
 
