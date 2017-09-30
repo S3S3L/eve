@@ -7,7 +7,7 @@
  * 
 */
 
-package com.s3s3l.eve.model.enumetrations;
+package com.s3s3l.eve.model.enumetrations.sso;
 
 /**
  * <p>

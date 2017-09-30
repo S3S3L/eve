@@ -113,6 +113,10 @@
             <groupId>com.s3s3l</groupId>
             <artifactId>s3s3l-http</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.s3s3l</groupId>
+            <artifactId>s3s3l-data</artifactId>
+        </dependency>
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

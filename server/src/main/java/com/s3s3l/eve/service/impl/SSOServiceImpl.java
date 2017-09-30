@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.cache.Cache;
 import com.s3s3l.eve.configuration.SSOConfiguration;
-import com.s3s3l.eve.model.enumetrations.EnumCacheKeys;
+import com.s3s3l.eve.model.enumetrations.sso.EnumCacheKeys;
 import com.s3s3l.eve.model.sso.CharacterInfo;
 import com.s3s3l.eve.model.sso.TokenInfo;
 import com.s3s3l.eve.service.SSOService;
@@ -60,15 +60,15 @@ public class SSOServiceImpl implements SSOService {
     @Override
     public String getToken() {
         String token = expireCache.getIfPresent(EnumCacheKeys.TOKEN.key());
-        if(StringUtil.isEmpty(token)){
+        if (StringUtil.isEmpty(token)) {
             String refreshToken = cache.getIfPresent(EnumCacheKeys.REFRESH_TOKEN.key());
-            if(StringUtil.isEmpty(refreshToken)){
+            if (StringUtil.isEmpty(refreshToken)) {
                 TokenInfo tokenInfo = token(auth());
                 expireCache.put(EnumCacheKeys.TOKEN.key(), tokenInfo.getAccessToken());
                 cache.put(EnumCacheKeys.REFRESH_TOKEN.key(), tokenInfo.getRefreshToken());
                 return tokenInfo.getAccessToken();
             }
-            
+
             token = refreshToken(refreshToken).getAccessToken();
             expireCache.put(EnumCacheKeys.TOKEN.key(), token);
         }
@@ -97,7 +97,7 @@ public class SSOServiceImpl implements SSOService {
         RequestBody body = RequestBody.create(mediaType, UrlUtil.buildRequestParam(params));
         Request request = new Request.Builder().url(ssoConfiguration.getInterfaces()
                 .getAuth()
-                .getUrl(ssoConfiguration.getEndPoint()))
+                .getUrl(ssoConfiguration.getEndpoint()))
                 .post(body)
                 .addHeader("content-type", "application/x-www-form-urlencoded")
                 .addHeader("cookie",
@@ -142,7 +142,7 @@ public class SSOServiceImpl implements SSOService {
                 .build();
         return http.doPost(ssoConfiguration.getInterfaces()
                 .getToken()
-                .getUrl(ssoConfiguration.getEndPoint()), "application/x-www-form-urlencoded",
+                .getUrl(ssoConfiguration.getEndpoint()), "application/x-www-form-urlencoded",
                 ContentType.APPLICATION_FORM_URLENCODED, params, headers, TokenInfo.class);
     }
 
@@ -154,7 +154,7 @@ public class SSOServiceImpl implements SSOService {
                 .build();
         return http.doPost(ssoConfiguration.getInterfaces()
                 .getRefreshToken()
-                .getUrl(ssoConfiguration.getEndPoint()), "application/x-www-form-urlencoded",
+                .getUrl(ssoConfiguration.getEndpoint()), "application/x-www-form-urlencoded",
                 ContentType.APPLICATION_FORM_URLENCODED, params, headers, TokenInfo.class);
     }
 
@@ -163,7 +163,7 @@ public class SSOServiceImpl implements SSOService {
         headers.put("authorization", "Bearer ".concat(token));
         return http.doGet(ssoConfiguration.getInterfaces()
                 .getObtainCharacter()
-                .getUrl(ssoConfiguration.getEndPoint()), null, headers, CharacterInfo.class);
+                .getUrl(ssoConfiguration.getEndpoint()), null, headers, CharacterInfo.class);
     }
 
 }

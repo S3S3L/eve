@@ -9,6 +9,9 @@
 
 package com.s3s3l.eve.model.eve;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * <p>
  * </p>
@@ -19,6 +22,7 @@ package com.s3s3l.eve.model.eve;
  * @version 1.0.0
  * @since JDK 1.8
  */
+@JsonInclude(Include.NON_DEFAULT)
 public class Globalization {
 
     private String de;

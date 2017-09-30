@@ -1,21 +1,39 @@
+spring:
+  redis:
+    host: localhost
+    port: 7379
+    password: eve_redis
+    database: 1
+    pool:
+      max-active: 300
+      max-idle: 100
+      max-wait: 1000
+      min-idle: 10
 server:
   port: 42081
 security:
   basic:
     enabled: false
 data:
+  universe:
+    eve:
+    - file:fsd/universe/eve
+    - classpath:fsd/universe/eve
+    wormhole:
+    - file:fsd/universe/wormhole
+    - classpath:fsd/universe/wormhole
   blueprint:
   - file:fsd/blueprints.yaml
   - classpath:fsd/blueprints.yaml
 sso: 
-  endPoint: https://login.eveonline.com
-  responseType: code
-  redirectUri: http://112.124.116.28/auth/callback/
-  clientId: 95f8526a8b504f2bb3b95e650e609613
-  secretKey: KsDHpjIu6qkyZQwZY7NgjpWdvfhf1SxKdL9Xfsvv
+  endpoint: https://login.eveonline.com
+  response-type: code
+  redirect-uri: http://112.124.116.28/auth/callback/
+  client-id: 95f8526a8b504f2bb3b95e650e609613
+  secret-key: KsDHpjIu6qkyZQwZY7NgjpWdvfhf1SxKdL9Xfsvv
   state: ZH-CN
-  requestVerificationToken: uZ_RBRlrmcogA4oRO8NkHEle3AZVa4PEstQ2RMWjNnhzU_q-fAERqvnNIxert0Yr3TYpyCiUqWNE4EScsQLIXGc-bJU1
-  characterId: 2112814558
+  request-verification-token: uZ_RBRlrmcogA4oRO8NkHEle3AZVa4PEstQ2RMWjNnhzU_q-fAERqvnNIxert0Yr3TYpyCiUqWNE4EScsQLIXGc-bJU1
+  character-id: 2112814558
   authorization: Basic OTVmODUyNmE4YjUwNGYyYmIzYjk1ZTY1MGU2MDk2MTM6S3NESHBqSXU2cWt5WlF3Wlk3TmdqcFdkdmZoZjFTeEtkTDlYZnN2dg==
   interfaces: 
     auth:
@@ -123,3 +141,35 @@ sso:
   - esi-corporations.track_members.v1
   - esi-wallet.read_corporation_wallets.v1
   - esi-characters.read_notifications.v1
+esi:
+  languages:
+  - zh
+  - en-us
+  endpoint: https://esi.tech.ccp.is/latest
+  version: latest
+  datasource: tranquility
+  interfaces:
+    region:
+      path: universe/regions
+      method: get
+    constellation:
+      path: universe/constellations
+      method: get
+    system:
+      path: universe/systems
+      method: get
+    star:
+      path: universe/star
+      method: get
+    planet:
+      path: universe/planets
+      method: get
+    moon:
+      path: universe/moons
+      method: get
+    type:
+      path: universe/types
+      method: get
+    group:
+      path: universe/groups
+      method: get

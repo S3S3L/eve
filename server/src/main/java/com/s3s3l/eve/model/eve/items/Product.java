@@ -7,7 +7,7 @@
  * 
 */  
   
-package com.s3s3l.eve.model.eve;  
+package com.s3s3l.eve.model.eve.items;  
 /**
  * <p>
  * </p> 

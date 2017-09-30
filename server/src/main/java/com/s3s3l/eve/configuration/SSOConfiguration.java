@@ -11,11 +11,10 @@ package com.s3s3l.eve.configuration;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-import com.s3s3l.eve.model.enumetrations.EnumHttpMethod;
+import com.s3s3l.eve.configuration.base.HttpInterface;
 
 /**
  * <p>
@@ -31,7 +30,7 @@ import com.s3s3l.eve.model.enumetrations.EnumHttpMethod;
 @ConfigurationProperties(prefix = "sso")
 public class SSOConfiguration {
 
-    private String endPoint;
+    private String endpoint;
     private String responseType;
     private String redirectUri;
     private String clientId;
@@ -44,84 +43,50 @@ public class SSOConfiguration {
     private String authorization;
 
     public static class Interfaces {
-        private Interface auth;
-        private Interface token;
-        private Interface refreshToken;
-        private Interface obtainCharacter;
+        private HttpInterface auth;
+        private HttpInterface token;
+        private HttpInterface refreshToken;
+        private HttpInterface obtainCharacter;
 
-        public Interface getAuth() {
+        public HttpInterface getAuth() {
             return auth;
         }
 
-        public void setAuth(Interface auth) {
+        public void setAuth(HttpInterface auth) {
             this.auth = auth;
         }
 
-        public Interface getToken() {
+        public HttpInterface getToken() {
             return token;
         }
 
-        public void setToken(Interface token) {
+        public void setToken(HttpInterface token) {
             this.token = token;
         }
 
-        public Interface getRefreshToken() {
+        public HttpInterface getRefreshToken() {
             return refreshToken;
         }
 
-        public void setRefreshToken(Interface refreshToken) {
+        public void setRefreshToken(HttpInterface refreshToken) {
             this.refreshToken = refreshToken;
         }
 
-        public Interface getObtainCharacter() {
+        public HttpInterface getObtainCharacter() {
             return obtainCharacter;
         }
 
-        public void setObtainCharacter(Interface obtainCharacter) {
+        public void setObtainCharacter(HttpInterface obtainCharacter) {
             this.obtainCharacter = obtainCharacter;
         }
     }
 
-    public static class Interface {
-        private String path;
-        private EnumHttpMethod method;
-
-        public String getUrl(String endPoint) {
-            if (StringUtils.isEmpty(endPoint) || StringUtils.isEmpty(path)) {
-                return endPoint;
-            }
-            if (endPoint.endsWith("/") && path.endsWith("/")) {
-                return endPoint.concat(path.replaceFirst("/", ""));
-            }
-            if (!endPoint.endsWith("/") && !path.endsWith("/")) {
-                return endPoint.concat("/").concat(path);
-            }
-            return endPoint.concat(path);
-        }
-
-        public String getPath() {
-            return path;
-        }
-
-        public void setPath(String path) {
-            this.path = path;
-        }
-
-        public EnumHttpMethod getMethod() {
-            return method;
-        }
-
-        public void setMethod(EnumHttpMethod method) {
-            this.method = method;
-        }
+    public String getEndpoint() {
+        return endpoint;
     }
 
-    public String getEndPoint() {
-        return endPoint;
-    }
-
-    public void setEndPoint(String endPoint) {
-        this.endPoint = endPoint;
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
     }
 
     public String getResponseType() {

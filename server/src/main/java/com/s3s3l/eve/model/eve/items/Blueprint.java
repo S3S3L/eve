@@ -7,9 +7,11 @@
  * 
 */
 
-package com.s3s3l.eve.model.eve;
+package com.s3s3l.eve.model.eve.items;
 
 import java.util.List;
+
+import com.s3s3l.eve.model.eve.Timing;
 
 /**
  * <p>

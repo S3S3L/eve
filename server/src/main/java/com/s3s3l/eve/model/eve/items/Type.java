@@ -7,11 +7,13 @@
  * 
 */
 
-package com.s3s3l.eve.model.eve;
+package com.s3s3l.eve.model.eve.items;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+
+import com.s3s3l.eve.model.eve.Globalization;
 
 /**
  * <p>

@@ -19,8 +19,8 @@ import org.junit.Test;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.s3s3l.eve.model.eve.Blueprint;
-import com.s3s3l.eve.model.eve.Type;
+import com.s3s3l.eve.model.eve.items.Blueprint;
+import com.s3s3l.eve.model.eve.items.Type;
 import com.s3s3l.resource.JacksonUtil;
 import com.s3s3l.utils.file.FileUtil;
 
