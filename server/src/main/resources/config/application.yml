@@ -9,22 +9,52 @@ spring:
       max-idle: 100
       max-wait: 1000
       min-idle: 10
+  datasource:
+    url: jdbc:hsqldb:file:./db/eve
+    username: zwei
+    password: eve_data
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
 server:
   port: 42081
 security:
   basic:
     enabled: false
+datasource:
+  driverClassName: org.hsqldb.jdbc.JDBCDriver
+  url: jdbc:hsqldb:file:./db/eve
+  username: zwei
+  password: eve_data
+  jmxEnabled: false
+  testWhileIdle: false
+  validationQuery: SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS
+  testOnBorrow: true
+  testOnReturn: false
+  validationInterval: 30000
+  timeBetweenEvictionRunsMillis: 10000
+  maxActive: 10
+  maxIdle: 2
+  minIdle: 1
+  initialSize: 2
+  maxWait: 60000
+  removeAbandoned: true
+  removeAbandonedTimeout: 60000
+  minEvictableIdleTimeMillis: 60000
+  logAbandoned: true
+  cryptographic: false
 data:
   universe:
     eve:
     - file:fsd/universe/eve
     - classpath:fsd/universe/eve
+    - fsd/universe/eve
     wormhole:
     - file:fsd/universe/wormhole
     - classpath:fsd/universe/wormhole
+    - fsd/universe/wormhole
   blueprint:
   - file:fsd/blueprints.yaml
   - classpath:fsd/blueprints.yaml
+  - fsd/blueprints.yaml
 sso: 
   endpoint: https://login.eveonline.com
   response-type: code
@@ -148,6 +178,7 @@ esi:
   endpoint: https://esi.tech.ccp.is/latest
   version: latest
   datasource: tranquility
+  retry-count: 3
   interfaces:
     region:
       path: universe/regions

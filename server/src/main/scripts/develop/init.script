@@ -4,14 +4,14 @@
 # processname: vol-service
 # chkconfig: 234 20 80
 
-APPID=com.easybike.dictionary-service
+APPID=com.s3s3l.eve
 USER=zwei
 
 #develop
 SPRING_PROFILE=dev
 
-PROJECT_NAME=AppHellobikeDictionaryService
-JAR_NAME=dictionary-service.jar
+PROJECT_NAME=EveHelperServer
+JAR_NAME=eve-server.jar
 SERVER_PORT=20080
 
 BACKUP_DIR_NAME="backup"

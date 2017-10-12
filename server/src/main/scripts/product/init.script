@@ -10,15 +10,15 @@ USER=deploy
 #product
 SPRING_PROFILE=product
 
-PROJECT_NAME=AppHellobikeDictionaryService
-JAR_NAME=dictionary-service.jar
+PROJECT_NAME=EveHelperServer
+JAR_NAME=eve-server.jar
 SERVER_PORT=8080
 
 BACKUP_DIR_NAME="backup"
 LAST_VERSION_DIR="latest"
 CONFIG_DIR_NAME="config"
 
-APP_HOME=/workspace/carkey/$PROJECT_NAME/latest
+APP_HOME=/workspace/s3s3l/$PROJECT_NAME/latest
 JAR_LOCATION=$APP_HOME/$JAR_NAME
 NOW_DATE=$(date +"%Y-%m-%d")
 SPLITER="-------------------------------------------"

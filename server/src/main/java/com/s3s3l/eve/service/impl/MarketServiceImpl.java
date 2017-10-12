@@ -11,11 +11,8 @@ package com.s3s3l.eve.service.impl;
 
 import java.math.BigDecimal;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.s3s3l.eve.model.eve.items.Blueprint;
 import com.s3s3l.eve.service.MarketService;
-import com.s3s3l.http.HttpUtil;
 
 /**
  * <p>
@@ -28,8 +25,6 @@ import com.s3s3l.http.HttpUtil;
  * @since JDK 1.8
  */
 public class MarketServiceImpl implements MarketService {
-    @Autowired
-    private HttpUtil http;
 
     @Override
     public BigDecimal getCost(Blueprint blueprint) {

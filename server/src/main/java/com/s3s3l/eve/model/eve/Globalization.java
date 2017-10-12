@@ -11,6 +11,7 @@ package com.s3s3l.eve.model.eve;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.s3s3l.jdbc.bind.annotation.Column;
 
 /**
  * <p>
@@ -25,13 +26,21 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_DEFAULT)
 public class Globalization {
 
+    @Column(dbType = "longvarchar")
     private String de;
+    @Column(dbType = "longvarchar")
     private String en;
+    @Column(dbType = "longvarchar")
     private String es;
+    @Column(dbType = "longvarchar")
     private String fr;
+    @Column(dbType = "longvarchar")
     private String it;
+    @Column(dbType = "longvarchar")
     private String ja;
+    @Column(dbType = "longvarchar")
     private String ru;
+    @Column(dbType = "longvarchar")
     private String zh;
 
     public String getDe() {

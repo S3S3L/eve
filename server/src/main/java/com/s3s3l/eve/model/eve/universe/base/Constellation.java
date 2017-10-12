@@ -14,7 +14,11 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.s3s3l.eve.annotation.GlobalizationMap;
+import com.s3s3l.eve.annotation.Primary;
 import com.s3s3l.eve.model.eve.Globalization;
+import com.s3s3l.jdbc.bind.annotation.Column;
+import com.s3s3l.jdbc.bind.annotation.SqlModel;
+import com.s3s3l.jdbc.handler.ArrayTypeHandler;
 
 /**
  * <p>
@@ -26,14 +30,22 @@ import com.s3s3l.eve.model.eve.Globalization;
  * @version 1.0.0
  * @since JDK 1.8
  */
+@SqlModel(table = "t_constellation")
 @JsonInclude(Include.NON_DEFAULT)
 public class Constellation extends Astronomical {
+    @Primary
+    @Column(dbType = "varchar(20)")
     private String constellationID;
+    @Column(dbType = "varchar(20)")
     private String name;
+    @Column(dbType = "varchar(20)")
     private String nameID;
+    @Column(dbType = "double")
     private Double radius;
     private Position position;
+    @Column(dbType = "varchar(20)")
     private String regionID;
+    @Column(dbType = "varchar(20) array", typeHandler = ArrayTypeHandler.class)
     private List<String> systems;
     @GlobalizationMap("name")
     private Globalization gName;

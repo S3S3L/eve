@@ -74,7 +74,7 @@ public class Type {
     public static class Trait {
         private List<MiscBonus> miscBonuses;
         private List<RoleBonus> roleBonuses;
-        private Map<Integer, BonusType> types;
+        private Map<Integer, List<BonusType>> types;
 
         public static class Bonus {
             private Integer importance;
@@ -167,11 +167,11 @@ public class Type {
             this.roleBonuses = roleBonuses;
         }
 
-        public Map<Integer, BonusType> getTypes() {
+        public Map<Integer, List<BonusType>> getTypes() {
             return types;
         }
 
-        public void setTypes(Map<Integer, BonusType> types) {
+        public void setTypes(Map<Integer, List<BonusType>> types) {
             this.types = types;
         }
     }

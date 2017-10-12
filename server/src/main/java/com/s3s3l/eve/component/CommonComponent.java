@@ -9,7 +9,9 @@
 
 package com.s3s3l.eve.component;
 
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties.Pool;
@@ -33,6 +35,11 @@ import com.s3s3l.http.HttpUtil;
 import com.s3s3l.redis.JedisUtil;
 import com.s3s3l.redis.RedisHandler;
 import com.s3s3l.resource.JacksonUtil;
+import com.s3s3l.utils.concurrent.CommonTaskExecutor;
+import com.s3s3l.utils.concurrent.TaskExecutor;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -51,8 +58,23 @@ import redis.clients.jedis.JedisPoolConfig;
 public class CommonComponent {
 
     @Bean
-    public HttpUtil httpUtil() {
-        return new HttpUtil();
+    public HttpUtil httpUtil(ESIConfiguration esiConfiguration) {
+        OkHttpClient client = new OkHttpClient();
+        client.setConnectTimeout(20, TimeUnit.SECONDS);
+        client.setReadTimeout(20, TimeUnit.SECONDS);
+        client.interceptors()
+                .add((chain) -> {
+                    Request request = chain.request();
+
+                    Response response = chain.proceed(request);
+                    AtomicInteger retryCount = new AtomicInteger();
+                    while (response != null && !response.isSuccessful()
+                            && retryCount.getAndIncrement() < esiConfiguration.getRetryCount()) {
+                        response = chain.proceed(request);
+                    }
+                    return response;
+                });
+        return new HttpUtil(client);
     }
 
     @Bean(name = "expireCache")
@@ -101,6 +123,11 @@ public class CommonComponent {
                         return redis.get(key);
                     });
         }, new RedisCacheChecker(redis));
+    }
+
+    @Bean
+    public TaskExecutor taskExecutor() {
+        return CommonTaskExecutor.create(Executors.newFixedThreadPool(50));
     }
 
     @Bean

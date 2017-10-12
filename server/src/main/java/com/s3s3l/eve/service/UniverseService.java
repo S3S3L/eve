@@ -9,7 +9,6 @@
 
 package com.s3s3l.eve.service;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.s3s3l.eve.model.eve.universe.Moon;
@@ -31,7 +30,7 @@ import com.s3s3l.eve.model.eve.universe.base.Constellation;
  */
 public interface UniverseService {
 
-    void loadUniverse() throws FileNotFoundException, IOException;
+    void loadUniverse() throws IOException;
 
     Region getRegion(String regionID);
 

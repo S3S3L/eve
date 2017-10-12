@@ -9,6 +9,10 @@
 
 package com.s3s3l.eve.model.eve.universe.base;
 
+import com.s3s3l.jdbc.bind.annotation.Column;
+import com.s3s3l.jdbc.handler.ArrayTypeHandler;
+import com.s3s3l.jdbc.helper.ArrayHelper;
+
 /**
  * <p>
  * </p>
@@ -21,8 +25,11 @@ package com.s3s3l.eve.model.eve.universe.base;
  */
 public abstract class Astronomical {
 
+    @Column(dbType = "double array", typeHandler = ArrayTypeHandler.class)
     private double[] max;
+    @Column(dbType = "double array", typeHandler = ArrayTypeHandler.class)
     private double[] min;
+    @Column(dbType = "double array", typeHandler = ArrayTypeHandler.class)
     private double[] center;
 
     public double[] getMax() {
@@ -33,6 +40,10 @@ public abstract class Astronomical {
         this.max = max;
     }
 
+    public String getMaxArray() {
+        return ArrayHelper.toArray(max);
+    }
+
     public double[] getMin() {
         return min;
     }
@@ -41,11 +52,19 @@ public abstract class Astronomical {
         this.min = min;
     }
 
+    public String getMinArray() {
+        return ArrayHelper.toArray(min);
+    }
+
     public double[] getCenter() {
         return center;
     }
 
     public void setCenter(double[] center) {
         this.center = center;
+    }
+
+    public String getCenterArray() {
+        return ArrayHelper.toArray(center);
     }
 }

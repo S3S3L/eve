@@ -37,6 +37,7 @@ public class ESIConfiguration {
     private String endpoint;
     private EnumVersion version;
     private EnumDatasource datasource;
+    private int retryCount;
 
     public static class Interfaces {
         private HttpInterface region;
@@ -151,5 +152,13 @@ public class ESIConfiguration {
 
     public void setDatasource(EnumDatasource datasource) {
         this.datasource = datasource;
+    }
+
+    public int getRetryCount() {
+        return retryCount;
+    }
+
+    public void setRetryCount(int retryCount) {
+        this.retryCount = retryCount;
     }
 }

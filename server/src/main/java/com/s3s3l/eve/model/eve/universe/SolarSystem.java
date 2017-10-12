@@ -14,8 +14,13 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.s3s3l.eve.annotation.GlobalizationMap;
+import com.s3s3l.eve.annotation.Primary;
+import com.s3s3l.eve.model.eve.Globalization;
 import com.s3s3l.eve.model.eve.universe.base.Astronomical;
 import com.s3s3l.eve.model.eve.universe.base.Position;
+import com.s3s3l.jdbc.bind.annotation.Column;
+import com.s3s3l.jdbc.bind.annotation.SqlModel;
 
 /**
  * <p>
@@ -27,22 +32,28 @@ import com.s3s3l.eve.model.eve.universe.base.Position;
  * @version 1.0.0
  * @since JDK 1.8
  */
+@SqlModel(table = "t_solar_system")
 @JsonInclude(Include.NON_DEFAULT)
 public class SolarSystem extends Astronomical {
 
     /**
      * 是否有走廊(跳桥？)
      */
+    @Column(dbType = "boolean")
     private Boolean corridor;
     /**
      * 是否边缘
      */
+    @Column(dbType = "boolean")
     private Boolean fringe;
     /**
      * 是否有hub
      */
+    @Column(dbType = "boolean")
     private Boolean hub;
+    @Column(dbType = "boolean")
     private Boolean international;
+    @Column(dbType = "double")
     private Double luminosity;
     /**
      * 行星
@@ -51,14 +62,21 @@ public class SolarSystem extends Astronomical {
     /**
      * 半径
      */
+    @Column(dbType = "double")
     private Double radius;
+    @Column(dbType = "boolean")
     private Boolean regional;
     /**
      * 安等
      */
+    @Column(dbType = "numeric")
     private BigDecimal security;
+    @Column(dbType = "varchar(20)")
     private String securityClass;
+    @Primary
+    @Column(dbType = "varchar(20)")
     private String solarSystemID;
+    @Column(dbType = "varchar(20)")
     private String solarSystemNameID;
     /**
      * 恒星
@@ -68,13 +86,21 @@ public class SolarSystem extends Astronomical {
      * 星门
      */
     private Map<String, Stargate> stargates;
+    @Column(dbType = "varchar(20)")
     private String sunTypeID;
+    @Column(dbType = "varchar(20)")
     private String wormholeClassID;
+    @Column(dbType = "varchar(20)")
     private String constellationID;
+    @Column(dbType = "varchar(20)")
     private String name;
     private Position position;
+    @Column(dbType = "varchar(20)")
     private String starID;
+    @Column(dbType = "varchar(20)")
     private String systemID;
+    @GlobalizationMap("name")
+    private Globalization gName;
 
     public Boolean getCorridor() {
         return corridor;
@@ -242,6 +268,14 @@ public class SolarSystem extends Astronomical {
 
     public void setSystemID(String systemID) {
         this.systemID = systemID;
+    }
+
+    public Globalization getgName() {
+        return gName;
+    }
+
+    public void setgName(Globalization gName) {
+        this.gName = gName;
     }
 
 }

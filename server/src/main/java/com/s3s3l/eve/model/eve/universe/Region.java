@@ -15,8 +15,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.s3s3l.eve.annotation.GlobalizationMap;
+import com.s3s3l.eve.annotation.Primary;
 import com.s3s3l.eve.model.eve.Globalization;
 import com.s3s3l.eve.model.eve.universe.base.Astronomical;
+import com.s3s3l.jdbc.bind.annotation.Column;
+import com.s3s3l.jdbc.bind.annotation.SqlModel;
+import com.s3s3l.jdbc.handler.ArrayTypeHandler;
+import com.s3s3l.jdbc.helper.ArrayHelper;
 
 /**
  * <p>
@@ -28,15 +33,24 @@ import com.s3s3l.eve.model.eve.universe.base.Astronomical;
  * @version 1.0.0
  * @since JDK 1.8
  */
+@SqlModel(table = "t_region")
 @JsonInclude(Include.NON_DEFAULT)
 public class Region extends Astronomical {
 
+    @Primary
+    @Column(dbType = "varchar(20)")
     private String regionID;
+    @Column(dbType = "varchar(20)")
     private String name;
+    @Column(dbType = "varchar(20) array", typeHandler = ArrayTypeHandler.class)
     private List<String> constellations;
+    @Column(dbType = "longvarchar")
     private String description;
+    @Column(dbType = "varchar(20)")
     private String nameID;
+    @Column(dbType = "varchar(20)")
     private String nebula;
+    @Column(dbType = "varchar(20)")
     private String wormholeClassID;
     @GlobalizationMap("name")
     private Globalization gName;
@@ -70,6 +84,10 @@ public class Region extends Astronomical {
 
     public void setConstellations(List<String> constellations) {
         this.constellations = constellations;
+    }
+    
+    public String getConstellationsArray() {
+        return ArrayHelper.toArray(constellations);
     }
 
     public String getDescription() {

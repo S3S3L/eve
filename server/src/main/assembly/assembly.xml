@@ -20,28 +20,32 @@
     <fileSets>
         <fileSet>
             <directory>src/main/scripts/${env}</directory>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>.</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>src/main/resources/config</directory>
-            <outputDirectory>/conf</outputDirectory>
+            <outputDirectory>conf</outputDirectory>
             <excludes>
                 <exclude>application.yml</exclude>
             </excludes>
         </fileSet>
         <fileSet>
             <directory>src/main/resources/config</directory>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>.</outputDirectory>
             <includes>
                 <include>application.yml</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>src/main/resources</directory>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>.</outputDirectory>
             <includes>
                 <include>log4j2.yml</include>
             </includes>
+        </fileSet>
+        <fileSet>
+        	<directory>eve_data</directory>
+            <outputDirectory>.</outputDirectory>
         </fileSet>
     </fileSets>
 </assembly>

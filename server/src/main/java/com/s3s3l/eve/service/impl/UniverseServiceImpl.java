@@ -12,6 +12,8 @@ package com.s3s3l.eve.service.impl;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.slf4j.Logger;
@@ -22,10 +24,11 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.google.common.io.PatternFilenameFilter;
-import com.s3s3l.data.cache.CacheHelper;
 import com.s3s3l.eve.configuration.DatasourceConfiguration;
 import com.s3s3l.eve.configuration.ESIConfiguration;
 import com.s3s3l.eve.handler.GlobalizationHelper;
+import com.s3s3l.eve.model.enumetrations.eve.EnumGlobalizationType;
+import com.s3s3l.eve.model.eve.GlobalizationTable;
 import com.s3s3l.eve.model.eve.esiresponse.MoonResponse;
 import com.s3s3l.eve.model.eve.esiresponse.PlanetResponse;
 import com.s3s3l.eve.model.eve.esiresponse.SolarSystemResponse;
@@ -38,10 +41,12 @@ import com.s3s3l.eve.model.eve.universe.Star;
 import com.s3s3l.eve.model.eve.universe.base.Constellation;
 import com.s3s3l.eve.service.UniverseService;
 import com.s3s3l.http.HttpUtil;
+import com.s3s3l.jdbc.exec.SqlExecutor;
 import com.s3s3l.resource.JacksonHelper;
 import com.s3s3l.resource.JacksonUtil;
 import com.s3s3l.resource.JsonHelper;
 import com.s3s3l.utils.collection.MapBuilder;
+import com.s3s3l.utils.concurrent.TaskExecutor;
 import com.s3s3l.utils.file.FileUtil;
 
 /**
@@ -55,6 +60,7 @@ import com.s3s3l.utils.file.FileUtil;
  * @since JDK 1.8
  */
 @Service
+@SuppressWarnings("unused")
 public class UniverseServiceImpl implements UniverseService {
     private final JacksonHelper json = JacksonUtil.defaultHelper;
     private final JsonHelper yml = JacksonUtil.create(new YAMLFactory())
@@ -70,22 +76,93 @@ public class UniverseServiceImpl implements UniverseService {
     @Autowired
     private DatasourceConfiguration datasourceConfiguration;
     @Autowired
-    private CacheHelper<String, Object> localCache;
+    private SqlExecutor sqlExecutor;
+    @Autowired
+    private TaskExecutor taskExecutor;
 
     @Override
-    public void loadUniverse() throws FileNotFoundException, IOException {
+    public void loadUniverse() {
         File eve = FileUtil.getFirstExistFile(datasourceConfiguration.getUniverse()
                 .getEve());
         for (File region : eve.listFiles()) {
-            Region regionInfo = yml.toObject(region.listFiles(new PatternFilenameFilter(".*\\.staticdata"))[0],
-                    Region.class);
+            taskExecutor.execute(() -> {
+                try {
+                    Region regionInfo = yml.toObject(
+                            region.listFiles(new PatternFilenameFilter("region.staticdata"))[0], Region.class);
 
-            Region regionDetail = getRegion(regionInfo.getRegionID());
+                    Region regionDetail = getRegion(regionInfo.getRegionID());
 
-            yml.update(regionInfo, regionDetail, Region.class);
+                    yml.update(regionInfo, regionDetail, Region.class);
 
-            logger.info(json.prettyPrinter()
-                    .toJsonString(regionInfo));
+                    logger.info("Feaching region {} {} {}.", regionInfo.getRegionID(), regionInfo.getgName()
+                            .getEn(),
+                            regionInfo.getgName()
+                                    .getZh());
+
+                    sqlExecutor.insert(Arrays.asList(regionInfo), Region.class);
+
+                    sqlExecutor.insert(globalizationHelper.buildGlobalizationTables(regionInfo, Region.class,
+                            regionInfo.getRegionID(), EnumGlobalizationType.Region), GlobalizationTable.class);
+
+                } catch (IOException | SQLException e) {
+                    logger.error("Fail to featch region {}.", region.getName(), e);
+                }
+            });
+            for (File constellation : region.listFiles((file) -> file.isDirectory())) {
+                taskExecutor.execute(() -> {
+                    try {
+                        Constellation constellationInfo = yml.toObject(
+                                constellation.listFiles(new PatternFilenameFilter("constellation.staticdata"))[0],
+                                Constellation.class);
+                        Constellation constellationDetail = getConstellation(constellationInfo.getConstellationID());
+
+                        yml.update(constellationInfo, constellationDetail, Constellation.class);
+
+                        logger.info("Feaching constellation {} {} {}.", constellationInfo.getConstellationID(),
+                                constellationInfo.getgName()
+                                        .getEn(),
+                                constellationInfo.getgName()
+                                        .getZh());
+
+                        sqlExecutor.insert(Arrays.asList(constellationInfo), Constellation.class);
+
+                        sqlExecutor.insert(
+                                globalizationHelper.buildGlobalizationTables(constellationInfo, Constellation.class,
+                                        constellationInfo.getConstellationID(), EnumGlobalizationType.Constellation),
+                                GlobalizationTable.class);
+                    } catch (IOException | SQLException e) {
+                        logger.error("Fail to featch constellation {}.", region.getName(), e);
+                    }
+                });
+
+                for (File solarSystem : constellation.listFiles((file) -> file.isDirectory())) {
+                    taskExecutor.execute(() -> {
+                        try {
+                            SolarSystem solarSystemInfo = yml.toObject(
+                                    solarSystem.listFiles(new PatternFilenameFilter("solarsystem.staticdata"))[0],
+                                    SolarSystem.class);
+                            SolarSystem solarSystemDetail = getSystem(solarSystemInfo.getSolarSystemID());
+
+                            yml.update(solarSystemInfo, solarSystemDetail, SolarSystem.class);
+
+                            logger.info("Feaching solar system {} {} {}.", solarSystemInfo.getSolarSystemID(),
+                                    solarSystemInfo.getgName()
+                                            .getEn(),
+                                    solarSystemInfo.getgName()
+                                            .getZh());
+
+                            sqlExecutor.insert(Arrays.asList(solarSystemInfo), SolarSystem.class);
+
+                            sqlExecutor.insert(
+                                    globalizationHelper.buildGlobalizationTables(solarSystemInfo, SolarSystem.class,
+                                            solarSystemInfo.getSolarSystemID(), EnumGlobalizationType.SolarSystem),
+                                    GlobalizationTable.class);
+                        } catch (IOException | SQLException e) {
+                            logger.error("Fail to featch solar system {}.", region.getName(), e);
+                        }
+                    });
+                }
+            }
         }
     }
 

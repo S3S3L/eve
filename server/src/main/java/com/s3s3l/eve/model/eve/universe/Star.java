@@ -9,8 +9,6 @@
 
 package com.s3s3l.eve.model.eve.universe;
 
-import java.math.BigInteger;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.s3s3l.eve.model.eve.universe.base.Statistics;
