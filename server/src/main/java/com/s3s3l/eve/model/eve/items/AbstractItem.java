@@ -20,7 +20,7 @@ package com.s3s3l.eve.model.eve.items;
  */
 public abstract class AbstractItem implements Item {
     private int quantity;
-    private int typeID;
+    private String typeID;
 
     @Override
     public int getQuantity() {
@@ -33,12 +33,12 @@ public abstract class AbstractItem implements Item {
     }
 
     @Override
-    public int getTypeID() {
+    public String getTypeID() {
         return this.typeID;
     }
 
     @Override
-    public void setTypeID(int typeID) {
+    public void setTypeID(String typeID) {
         this.typeID = typeID;
     }
 }

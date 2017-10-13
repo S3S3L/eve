@@ -12,12 +12,17 @@ package com.s3s3l.eve.model.eve.universe.base;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.s3s3l.common.bean.verify.Examine;
+import com.s3s3l.common.bean.verify.Expectation;
 import com.s3s3l.eve.annotation.GlobalizationMap;
 import com.s3s3l.eve.annotation.Primary;
 import com.s3s3l.eve.model.eve.Globalization;
 import com.s3s3l.jdbc.bind.annotation.Column;
+import com.s3s3l.jdbc.bind.annotation.Condition;
 import com.s3s3l.jdbc.bind.annotation.SqlModel;
+import com.s3s3l.jdbc.enumerations.ComparePattern;
 import com.s3s3l.jdbc.handler.ArrayTypeHandler;
 
 /**
@@ -34,19 +39,30 @@ import com.s3s3l.jdbc.handler.ArrayTypeHandler;
 @JsonInclude(Include.NON_DEFAULT)
 public class Constellation extends Astronomical {
     @Primary
+    @Condition(forDelete = true)
     @Column(dbType = "varchar(20)")
+    @Examine(value = Expectation.HAS_LENGTH, scope = "esi")
     private String constellationID;
+    
+    @Condition(pattern = ComparePattern.LIKE)
     @Column(dbType = "varchar(20)")
     private String name;
+    
     @Column(dbType = "varchar(20)")
     private String nameID;
+    
     @Column(dbType = "double")
     private Double radius;
+    
     private Position position;
+    
+    @Condition(forDelete = true)
     @Column(dbType = "varchar(20)")
     private String regionID;
+    
     @Column(dbType = "varchar(20) array", typeHandler = ArrayTypeHandler.class)
     private List<String> systems;
+    
     @GlobalizationMap("name")
     private Globalization gName;
 
@@ -55,6 +71,11 @@ public class Constellation extends Astronomical {
     }
 
     public void setConstellationID(String constellationID) {
+        this.constellationID = constellationID;
+    }
+
+    @JsonProperty("constellation_id")
+    public void setConstellation_ID(String constellationID) {
         this.constellationID = constellationID;
     }
 
@@ -95,6 +116,11 @@ public class Constellation extends Astronomical {
     }
 
     public void setRegionID(String regionID) {
+        this.regionID = regionID;
+    }
+
+    @JsonProperty("region_id")
+    public void setRegion_ID(String regionID) {
         this.regionID = regionID;
     }
 

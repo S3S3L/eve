@@ -30,13 +30,17 @@ import com.s3s3l.data.cache.CacheHelper;
 import com.s3s3l.data.cache.RedisCacheChecker;
 import com.s3s3l.data.cache.caffeine.CaffeineCacheHelper;
 import com.s3s3l.eve.configuration.ESIConfiguration;
+import com.s3s3l.eve.configuration.GlobalConfiguration;
 import com.s3s3l.eve.handler.GlobalizationHelper;
+import com.s3s3l.eve.handler.PaginRequestHelper;
 import com.s3s3l.http.HttpUtil;
 import com.s3s3l.redis.JedisUtil;
 import com.s3s3l.redis.RedisHandler;
 import com.s3s3l.resource.JacksonUtil;
 import com.s3s3l.utils.concurrent.CommonTaskExecutor;
 import com.s3s3l.utils.concurrent.TaskExecutor;
+import com.s3s3l.utils.verify.CommonVerifier;
+import com.s3s3l.utils.verify.Verifier;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -126,13 +130,23 @@ public class CommonComponent {
     }
 
     @Bean
-    public TaskExecutor taskExecutor() {
-        return CommonTaskExecutor.create(Executors.newFixedThreadPool(50));
+    public TaskExecutor taskExecutor(GlobalConfiguration globalConfiguration) {
+        return CommonTaskExecutor.create(Executors.newFixedThreadPool(globalConfiguration.getExecutorThreadCount()));
+    }
+
+    @Bean
+    public Verifier verifier() {
+        return new CommonVerifier();
     }
 
     @Bean
     public GlobalizationHelper globalizationHelper(ESIConfiguration esiConfiguration) {
         return new GlobalizationHelper(esiConfiguration);
+    }
+
+    @Bean
+    public PaginRequestHelper paginRequestHelper(ESIConfiguration esiConfiguration) {
+        return new PaginRequestHelper(esiConfiguration);
     }
 
     private JedisPool getJedisPool(RedisProperties redisProp) {

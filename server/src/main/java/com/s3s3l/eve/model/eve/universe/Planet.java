@@ -13,6 +13,8 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.s3s3l.common.bean.verify.Examine;
+import com.s3s3l.common.bean.verify.Expectation;
 import com.s3s3l.eve.model.eve.universe.base.PlanetAttributes;
 import com.s3s3l.eve.model.eve.universe.base.Statistics;
 
@@ -44,6 +46,7 @@ public class Planet {
     private Map<String, AsteroidBelt> asteroidBelts;
     private Map<String, Moon> moons;
     private String name;
+    @Examine(value = Expectation.NOT_EMPTY, scope = "esi")
     private String planetID;
     private String systemID;
 

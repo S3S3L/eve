@@ -11,6 +11,8 @@ package com.s3s3l.eve.service;
 
 import java.io.IOException;
 
+import javax.annotation.Nonnull;
+
 import com.s3s3l.eve.model.eve.universe.Moon;
 import com.s3s3l.eve.model.eve.universe.Planet;
 import com.s3s3l.eve.model.eve.universe.Region;
@@ -28,20 +30,20 @@ import com.s3s3l.eve.model.eve.universe.base.Constellation;
  * @version 1.0.0
  * @since JDK 1.8
  */
-public interface UniverseService {
+public interface EsiUniverseService {
 
     void loadUniverse() throws IOException;
 
-    Region getRegion(String regionID);
+    Region getRegion(@Nonnull Region condition);
 
-    Constellation getConstellation(String constellationID);
+    Constellation getConstellation(@Nonnull Constellation condition);
 
-    SolarSystem getSystem(String systemID);
+    SolarSystem getSolarSystem(@Nonnull SolarSystem condition);
     
-    Planet getPlanet(String planetID);
+    Planet getPlanet(@Nonnull Planet condition);
     
-    Moon getMoon(String moonID);
+    Moon getMoon(@Nonnull Moon condition);
     
-    Star getStar(String starID);
+    Star getStar(@Nonnull Star condition);
 
 }

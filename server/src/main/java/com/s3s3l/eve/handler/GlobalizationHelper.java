@@ -48,7 +48,8 @@ public class GlobalizationHelper {
     public <T> T queryData(GlobalizationQuerier querier, Class<T> type) {
         GlobalizationResult<T> result = new GlobalizationResult<>(type);
         for (EnumLanguage lang : esiConfiguration.getLanguages()) {
-            result.put(lang, json.treeToValue(querier.query(lang), type));
+            result.put(lang, json.treeToValue(querier.query(lang)
+                    .getBody(), type));
         }
 
         return result.getGlobalizatedObject();
@@ -57,7 +58,8 @@ public class GlobalizationHelper {
     public <T> T queryData(GlobalizationQuerier querier, Class<T> type, Class<? extends LinkedModel<T>> responseType) {
         GlobalizationResult<T> result = new GlobalizationResult<>(type);
         for (EnumLanguage lang : esiConfiguration.getLanguages()) {
-            result.put(lang, json.treeToValue(querier.query(lang), responseType)
+            result.put(lang, json.treeToValue(querier.query(lang)
+                    .getBody(), responseType)
                     .convertTo());
         }
 
@@ -75,6 +77,7 @@ public class GlobalizationHelper {
             gTable.setGuid(StringUtil.getUUIDNoLine());
             gTable.setId(id);
             gTable.setType(gType.value());
+            gTable.setField(gField.getName());
             gTables.add(gTable);
         }
 

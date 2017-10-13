@@ -14,13 +14,17 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.s3s3l.common.bean.verify.Examine;
+import com.s3s3l.common.bean.verify.Expectation;
 import com.s3s3l.eve.annotation.GlobalizationMap;
 import com.s3s3l.eve.annotation.Primary;
 import com.s3s3l.eve.model.eve.Globalization;
 import com.s3s3l.eve.model.eve.universe.base.Astronomical;
 import com.s3s3l.eve.model.eve.universe.base.Position;
 import com.s3s3l.jdbc.bind.annotation.Column;
+import com.s3s3l.jdbc.bind.annotation.Condition;
 import com.s3s3l.jdbc.bind.annotation.SqlModel;
+import com.s3s3l.jdbc.enumerations.ComparePattern;
 
 /**
  * <p>
@@ -39,68 +43,100 @@ public class SolarSystem extends Astronomical {
     /**
      * 是否有走廊(跳桥？)
      */
+    @Condition
     @Column(dbType = "boolean")
     private Boolean corridor;
+    
     /**
      * 是否边缘
      */
+    @Condition
     @Column(dbType = "boolean")
     private Boolean fringe;
+
+    
     /**
      * 是否有hub
      */
+    @Condition
     @Column(dbType = "boolean")
     private Boolean hub;
+
     @Column(dbType = "boolean")
     private Boolean international;
+
     @Column(dbType = "double")
     private Double luminosity;
+
     /**
      * 行星
      */
     private Map<String, Planet> planets;
+
     /**
      * 半径
      */
     @Column(dbType = "double")
     private Double radius;
+
     @Column(dbType = "boolean")
     private Boolean regional;
+
     /**
      * 安等
      */
+    @Condition(pattern = ComparePattern.NOT_LESS)
     @Column(dbType = "numeric")
     private BigDecimal security;
+
     @Column(dbType = "varchar(20)")
     private String securityClass;
+
     @Primary
+    @Condition(forDelete = true)
     @Column(dbType = "varchar(20)")
+    @Examine(value = Expectation.HAS_LENGTH, scope = "esi")
     private String solarSystemID;
+
     @Column(dbType = "varchar(20)")
     private String solarSystemNameID;
+
     /**
      * 恒星
      */
     private Star star;
+
     /**
      * 星门
      */
     private Map<String, Stargate> stargates;
+
     @Column(dbType = "varchar(20)")
     private String sunTypeID;
+
     @Column(dbType = "varchar(20)")
     private String wormholeClassID;
+
+    @Condition(forDelete = true)
     @Column(dbType = "varchar(20)")
     private String constellationID;
+
+    @Condition(pattern = ComparePattern.LIKE)
     @Column(dbType = "varchar(20)")
     private String name;
+
     private Position position;
+
     @Column(dbType = "varchar(20)")
     private String starID;
+
+    @Condition(forDelete = true)
     @Column(dbType = "varchar(20)")
     private String systemID;
+
     @GlobalizationMap("name")
     private Globalization gName;
+
 
     public Boolean getCorridor() {
         return corridor;

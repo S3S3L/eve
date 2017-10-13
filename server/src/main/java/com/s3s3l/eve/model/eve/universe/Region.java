@@ -14,12 +14,16 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.s3s3l.common.bean.verify.Examine;
+import com.s3s3l.common.bean.verify.Expectation;
 import com.s3s3l.eve.annotation.GlobalizationMap;
 import com.s3s3l.eve.annotation.Primary;
 import com.s3s3l.eve.model.eve.Globalization;
 import com.s3s3l.eve.model.eve.universe.base.Astronomical;
 import com.s3s3l.jdbc.bind.annotation.Column;
+import com.s3s3l.jdbc.bind.annotation.Condition;
 import com.s3s3l.jdbc.bind.annotation.SqlModel;
+import com.s3s3l.jdbc.enumerations.ComparePattern;
 import com.s3s3l.jdbc.handler.ArrayTypeHandler;
 import com.s3s3l.jdbc.helper.ArrayHelper;
 
@@ -38,24 +42,36 @@ import com.s3s3l.jdbc.helper.ArrayHelper;
 public class Region extends Astronomical {
 
     @Primary
+    @Condition(forDelete = true)
     @Column(dbType = "varchar(20)")
+    @Examine(value = Expectation.HAS_LENGTH, scope = "esi")
     private String regionID;
+
+    @Condition(pattern = ComparePattern.LIKE)
     @Column(dbType = "varchar(20)")
     private String name;
+
     @Column(dbType = "varchar(20) array", typeHandler = ArrayTypeHandler.class)
     private List<String> constellations;
+
     @Column(dbType = "longvarchar")
     private String description;
+
     @Column(dbType = "varchar(20)")
     private String nameID;
+
     @Column(dbType = "varchar(20)")
     private String nebula;
+
     @Column(dbType = "varchar(20)")
     private String wormholeClassID;
+
     @GlobalizationMap("name")
     private Globalization gName;
+
     @GlobalizationMap("description")
     private Globalization gDescription;
+
 
     public String getRegionID() {
         return regionID;
@@ -85,7 +101,7 @@ public class Region extends Astronomical {
     public void setConstellations(List<String> constellations) {
         this.constellations = constellations;
     }
-    
+
     public String getConstellationsArray() {
         return ArrayHelper.toArray(constellations);
     }

@@ -11,7 +11,13 @@ package com.s3s3l.eve.model.eve.items;
 
 import java.util.List;
 
+import com.s3s3l.eve.annotation.Primary;
+import com.s3s3l.eve.model.eve.Globalization;
 import com.s3s3l.eve.model.eve.Timing;
+import com.s3s3l.jdbc.bind.annotation.Column;
+import com.s3s3l.jdbc.bind.annotation.Condition;
+import com.s3s3l.jdbc.bind.annotation.SqlModel;
+import com.s3s3l.jdbc.enumerations.ComparePattern;
 
 /**
  * <p>
@@ -23,14 +29,27 @@ import com.s3s3l.eve.model.eve.Timing;
  * @version 1.0.0
  * @since JDK 1.8
  */
+@SqlModel(table = "t_blueprint")
 public class Blueprint {
 
     private Activities activities;
-    private int blueprintTypeID;
+
+    @Primary
+    @Condition(forDelete = true)
+    @Column(dbType = "varchar(20)")
+    private String blueprintTypeID;
+
+    @Condition(pattern = ComparePattern.LIKE)
+    @Column(dbType = "varchar(64)")
+    private String name;
+
+    private Globalization gName;
+
     private int maxProductionLimit;
 
     public static class Activities {
         private Timing copying;
+        private Invention invention;
         private Manufacturing manufacturing;
         private Timing research_meterial;
         private Timing research_time;
@@ -94,6 +113,14 @@ public class Blueprint {
             this.copying = copying;
         }
 
+        public Invention getInvention() {
+            return invention;
+        }
+
+        public void setInvention(Invention invention) {
+            this.invention = invention;
+        }
+
         public Manufacturing getManufacturing() {
             return manufacturing;
         }
@@ -127,11 +154,11 @@ public class Blueprint {
         this.activities = activities;
     }
 
-    public int getBlueprintTypeID() {
+    public String getBlueprintTypeID() {
         return blueprintTypeID;
     }
 
-    public void setBlueprintTypeID(int blueprintTypeID) {
+    public void setBlueprintTypeID(String blueprintTypeID) {
         this.blueprintTypeID = blueprintTypeID;
     }
 
@@ -141,5 +168,21 @@ public class Blueprint {
 
     public void setMaxProductionLimit(int maxProductionLimit) {
         this.maxProductionLimit = maxProductionLimit;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Globalization getgName() {
+        return gName;
+    }
+
+    public void setgName(Globalization gName) {
+        this.gName = gName;
     }
 }

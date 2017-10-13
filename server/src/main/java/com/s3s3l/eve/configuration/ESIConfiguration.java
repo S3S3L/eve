@@ -38,6 +38,7 @@ public class ESIConfiguration {
     private EnumVersion version;
     private EnumDatasource datasource;
     private int retryCount;
+    private String totalPageKey;
 
     public static class Interfaces {
         private HttpInterface region;
@@ -48,6 +49,7 @@ public class ESIConfiguration {
         private HttpInterface star;
         private HttpInterface type;
         private HttpInterface group;
+        private HttpInterface orders;
 
         public HttpInterface getRegion() {
             return region;
@@ -112,6 +114,14 @@ public class ESIConfiguration {
         public void setGroup(HttpInterface group) {
             this.group = group;
         }
+
+        public HttpInterface getOrders() {
+            return orders;
+        }
+
+        public void setOrders(HttpInterface orders) {
+            this.orders = orders;
+        }
     }
 
     public Interfaces getInterfaces() {
@@ -160,5 +170,13 @@ public class ESIConfiguration {
 
     public void setRetryCount(int retryCount) {
         this.retryCount = retryCount;
+    }
+
+    public String getTotalPageKey() {
+        return totalPageKey;
+    }
+
+    public void setTotalPageKey(String totalPageKey) {
+        this.totalPageKey = totalPageKey;
     }
 }

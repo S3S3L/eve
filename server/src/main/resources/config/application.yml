@@ -41,20 +41,23 @@ datasource:
   minEvictableIdleTimeMillis: 60000
   logAbandoned: true
   cryptographic: false
+global:
+  executor-thread-count: 100
 data:
+  rebuild-database: false
   universe:
     eve:
     - file:fsd/universe/eve
-    - classpath:fsd/universe/eve
-    - fsd/universe/eve
+    - file:eve_data/fsd/universe/eve
     wormhole:
     - file:fsd/universe/wormhole
-    - classpath:fsd/universe/wormhole
-    - fsd/universe/wormhole
+    - file:eve_data/fsd/universe/wormhole
   blueprint:
   - file:fsd/blueprints.yaml
-  - classpath:fsd/blueprints.yaml
-  - fsd/blueprints.yaml
+  - file:eve_data/fsd/blueprints.yaml
+  type:
+  - file:fsd/typeIDs.yaml
+  - file:eve_data/fsd/typeIDs.yaml
 sso: 
   endpoint: https://login.eveonline.com
   response-type: code
@@ -179,28 +182,32 @@ esi:
   version: latest
   datasource: tranquility
   retry-count: 3
+  total-page-key: X-Pages
   interfaces:
     region:
-      path: universe/regions
+      path: universe/regions/{region_id}
       method: get
     constellation:
-      path: universe/constellations
+      path: universe/constellations/{constellation_id}
       method: get
     system:
-      path: universe/systems
+      path: universe/systems/{system_id}
       method: get
     star:
-      path: universe/star
+      path: universe/star/{star_id}
       method: get
     planet:
-      path: universe/planets
+      path: universe/planets/{planet_id}
       method: get
     moon:
-      path: universe/moons
+      path: universe/moons/{moon_id}
       method: get
     type:
-      path: universe/types
+      path: universe/types/{type_id}
       method: get
     group:
-      path: universe/groups
+      path: universe/groups/{group_id}
+      method: get
+    orders:
+      path: markets/{region_id}/orders
       method: get

@@ -40,7 +40,7 @@ public class ResourceLoaderTest {
     public void blueprintTest() throws IOException {
         Map<Integer, Blueprint> blueprintMap = JacksonUtil.create(new YAMLFactory())
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                .toObject(FileUtil.getFirstExistFile("classpath:fsd/blueprints.yaml", "file:fsd/blueprints.yaml"),
+                .toObject(FileUtil.getFirstExistFile("file:eve_data/fsd/blueprints.yaml"),
                         new TypeReference<Map<Integer, Blueprint>>() {
                         });
 
@@ -54,7 +54,7 @@ public class ResourceLoaderTest {
     public void typeTest() throws IOException {
         Map<Integer, Type> blueprintMap = JacksonUtil.create(new YAMLFactory())
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                .toObject(FileUtil.getFirstExistFile("classpath:fsd/typeIDs.yaml", "file:fsd/typeIDs.yaml"),
+                .toObject(FileUtil.getFirstExistFile("file:eve_data/fsd/typeIDs.yaml"),
                         new TypeReference<Map<Integer, Type>>() {
                         });
 

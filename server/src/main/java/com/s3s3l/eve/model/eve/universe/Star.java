@@ -11,6 +11,8 @@ package com.s3s3l.eve.model.eve.universe;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.s3s3l.common.bean.verify.Examine;
+import com.s3s3l.common.bean.verify.Expectation;
 import com.s3s3l.eve.model.eve.universe.base.Statistics;
 
 /**
@@ -26,6 +28,7 @@ import com.s3s3l.eve.model.eve.universe.base.Statistics;
 @JsonInclude(Include.NON_DEFAULT)
 public class Star {
 
+    @Examine(value = Expectation.NOT_EMPTY, scope = "esi")
     private String id;
     private Double radius;
     private Statistics statistics;

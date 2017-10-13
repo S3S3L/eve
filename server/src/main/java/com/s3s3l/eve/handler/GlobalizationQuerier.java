@@ -11,6 +11,7 @@ package com.s3s3l.eve.handler;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.s3s3l.eve.model.enumetrations.esi.EnumLanguage;
+import com.s3s3l.http.HttpUtil.HttpResponse;
 
 /**
  * <p>
@@ -24,6 +25,6 @@ import com.s3s3l.eve.model.enumetrations.esi.EnumLanguage;
  */
 public interface GlobalizationQuerier {
 
-    JsonNode query(EnumLanguage lang);
+    HttpResponse<JsonNode> query(EnumLanguage lang);
 }
   

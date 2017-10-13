@@ -11,6 +11,8 @@ package com.s3s3l.eve.model.eve.universe;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.s3s3l.common.bean.verify.Examine;
+import com.s3s3l.common.bean.verify.Expectation;
 import com.s3s3l.eve.model.eve.universe.base.PlanetAttributes;
 import com.s3s3l.eve.model.eve.universe.base.Statistics;
 
@@ -32,6 +34,7 @@ public class Moon {
     private Double radius;
     private Statistics statistics;
     private String typeID;
+    @Examine(value = Expectation.NOT_EMPTY, scope = "esi")
     private String moonID;
     private String name;
     private String systemID;

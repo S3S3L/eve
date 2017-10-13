@@ -81,7 +81,7 @@ public class SSOServiceImpl implements SSOService {
     }
 
     private String auth() {
-        Map<String, String> params = new MapBuilder<>(new HashMap<String, String>())
+        Map<String, Object> params = new MapBuilder<>(new HashMap<String, Object>())
                 .put("ClientIdentifier", ssoConfiguration.getClientId())
                 .put("RedirectUri", ssoConfiguration.getRedirectUri())
                 .put("State", "zh-cn")
@@ -136,7 +136,7 @@ public class SSOServiceImpl implements SSOService {
     private TokenInfo token(String authorizationCode) {
         Map<String, String> headers = new HashMap<>();
         headers.put("authorization", ssoConfiguration.getAuthorization());
-        Map<String, String> params = new MapBuilder<>(new HashMap<String, String>())
+        Map<String, Object> params = new MapBuilder<>(new HashMap<String, Object>())
                 .put("grant_type", "authorization_code")
                 .put("code", authorizationCode)
                 .build();
@@ -149,7 +149,7 @@ public class SSOServiceImpl implements SSOService {
     private TokenInfo refreshToken(String refreshToken) {
         Map<String, String> headers = new HashMap<>();
         headers.put("authorization", ssoConfiguration.getAuthorization());
-        Map<String, String> params = new MapBuilder<>(new HashMap<String, String>()).put("grant_type", "refresh_token")
+        Map<String, Object> params = new MapBuilder<>(new HashMap<String, Object>()).put("grant_type", "refresh_token")
                 .put("refresh_token", refreshToken)
                 .build();
         return http.doPost(ssoConfiguration.getInterfaces()
@@ -163,7 +163,8 @@ public class SSOServiceImpl implements SSOService {
         headers.put("authorization", "Bearer ".concat(token));
         return http.doGet(ssoConfiguration.getInterfaces()
                 .getObtainCharacter()
-                .getUrl(ssoConfiguration.getEndpoint()), null, headers, CharacterInfo.class);
+                .getUrl(ssoConfiguration.getEndpoint()), null, headers, CharacterInfo.class)
+                .getBody();
     }
 
 }

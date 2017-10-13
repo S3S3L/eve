@@ -36,6 +36,8 @@ public class GlobalizationTable extends Globalization {
     private String id;
     @Column(dbType = "integer")
     private Integer type;
+    @Column(dbType = "varchar(20)")
+    private String field;
 
     public GlobalizationTable() {
 
@@ -74,5 +76,13 @@ public class GlobalizationTable extends Globalization {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        this.field = field;
     }
 }

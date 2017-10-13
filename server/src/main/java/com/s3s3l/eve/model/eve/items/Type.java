@@ -13,7 +13,13 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.s3s3l.eve.annotation.Primary;
 import com.s3s3l.eve.model.eve.Globalization;
+import com.s3s3l.jdbc.bind.annotation.Column;
+import com.s3s3l.jdbc.bind.annotation.Condition;
+import com.s3s3l.jdbc.bind.annotation.SqlModel;
 
 /**
  * <p>
@@ -25,40 +31,88 @@ import com.s3s3l.eve.model.eve.Globalization;
  * @version 1.0.0
  * @since JDK 1.8
  */
+
+@SqlModel(table = "t_types")
+@JsonInclude(Include.NON_DEFAULT)
 public class Type {
-    private int groupID;
+
+    @Primary
+    @Condition(forDelete = true)
+    @Column(dbType = "varchar(20)")
+    private String typeID;
+
+    @Condition(forDelete = true)
+    @Column(dbType = "varchar(20)")
+    private String groupID;
+
     /**
      * 质量
      */
+    @Column(dbType = "double")
     private Double mass;
+
     private Globalization name;
+
+    @Column(dbType = "integer")
     private Integer portionSize;
+
+    @Column(dbType = "boolean")
     private boolean published;
+
     /**
      * 体积
      */
+    @Column(dbType = "double")
     private Double volume;
+
+    @Column(dbType = "double")
     private Double radius;
+
     private Globalization description;
+
+    @Column(dbType = "integer")
     private Integer graphicID;
+
+    @Column(dbType = "integer")
     private Integer soundID;
+
+    @Column(dbType = "integer")
     private Integer marketGroupID;
+
+    @Column(dbType = "integer")
     private Integer iconID;
+
+    @Column(dbType = "numeric")
     private BigDecimal basePrice;
+
+    @Column(dbType = "integer")
     private Integer raceID;
+
+    @Column(dbType = "varchar(128)")
     private String sofFactionName;
+
     /**
      * 容量
      */
+    @Column(dbType = "integer")
     private Integer capacity;
+
     /**
      * 专精
      */
     private Map<Integer, List<Integer>> masteries;
+
+    @Column(dbType = "longvarchar")
+    private String masteriesJson;
+
     /**
      * 特性
      */
     private Trait traits;
+
+    @Column(dbType = "longvarchar")
+    private String traitsJson;
+
 
     /**
      * <p>
@@ -176,11 +230,19 @@ public class Type {
         }
     }
 
-    public int getGroupID() {
+    public String getTypeID() {
+        return typeID;
+    }
+
+    public void setTypeID(String typeID) {
+        this.typeID = typeID;
+    }
+
+    public String getGroupID() {
         return groupID;
     }
 
-    public void setGroupID(int groupID) {
+    public void setGroupID(String groupID) {
         this.groupID = groupID;
     }
 
@@ -312,11 +374,27 @@ public class Type {
         this.masteries = masteries;
     }
 
+    public String getMasteriesJson() {
+        return masteriesJson;
+    }
+
+    public void setMasteriesJson(String masteriesJson) {
+        this.masteriesJson = masteriesJson;
+    }
+
     public Trait getTraits() {
         return traits;
     }
 
     public void setTraits(Trait traits) {
         this.traits = traits;
+    }
+
+    public String getTraitsJson() {
+        return traitsJson;
+    }
+
+    public void setTraitsJson(String traitsJson) {
+        this.traitsJson = traitsJson;
     }
 }

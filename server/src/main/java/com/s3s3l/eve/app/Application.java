@@ -32,7 +32,9 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 import com.s3s3l.eve.annotation.Primary;
-import com.s3s3l.eve.service.UniverseService;
+import com.s3s3l.eve.configuration.DatasourceConfiguration;
+import com.s3s3l.eve.service.EsiUniverseService;
+import com.s3s3l.eve.service.MarketService;
 import com.s3s3l.jdbc.bind.annotation.Column;
 import com.s3s3l.jdbc.bind.annotation.SqlModel;
 import com.s3s3l.utils.file.FileUtil;
@@ -65,10 +67,14 @@ public class Application extends ContextIdApplicationContextInitializer {
         configureLog4j();
         ctx = SpringApplication.run(Application.class, args);
 
-        initHSQLDB(true);
+        DatasourceConfiguration datasourceConfiguration = ctx.getBean(DatasourceConfiguration.class);
 
-        ctx.getBean(UniverseService.class)
+        initHSQLDB(datasourceConfiguration.isRebuildDatabase());
+        ctx.getBean(EsiUniverseService.class)
                 .loadUniverse();
+
+        ctx.getBean(MarketService.class)
+                .loadItems();
         logger.info("Started.");
     }
 

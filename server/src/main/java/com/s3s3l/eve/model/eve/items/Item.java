@@ -20,8 +20,8 @@ package com.s3s3l.eve.model.eve.items;
  */
 public interface Item extends Quantifiable{
 
-    int getTypeID();
+    String getTypeID();
 
-    void setTypeID(int typeID);
+    void setTypeID(String typeID);
 }
   

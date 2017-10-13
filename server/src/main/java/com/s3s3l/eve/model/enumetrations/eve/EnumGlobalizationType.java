@@ -20,7 +20,7 @@ package com.s3s3l.eve.model.enumetrations.eve;
  * @since JDK 1.8
  */
 public enum EnumGlobalizationType {
-    Region(1, "星域"), Constellation(2, "星座"), SolarSystem(3, "星系");
+    Region(1, "星域"), Constellation(2, "星座"), SolarSystem(3, "星系"), Type(4, "物品"), Blueprint(5, "蓝图");
 
     private int value;
     private String info;
