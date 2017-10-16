@@ -27,6 +27,10 @@ import com.s3s3l.eve.model.eve.items.Type;
  * @since JDK 1.8
  */
 public interface CommonService {
+    
+    void loadItems();
+    
+    void loadBluePrints();
 
     List<Type> getType(@Nonnull Type type);
 

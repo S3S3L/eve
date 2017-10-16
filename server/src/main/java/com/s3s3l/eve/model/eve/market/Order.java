@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @since JDK 1.8
  */
 @JsonInclude(Include.NON_DEFAULT)
-public class Order {
+public class Order implements Comparable<Order>{
 
     private String orderID;
     private String typeID;
@@ -183,5 +183,10 @@ public class Order {
 
     public void setRange(String range) {
         this.range = range;
+    }
+
+    @Override
+    public int compareTo(Order o) {
+        return this.getPrice().compareTo(o.getPrice());
     }
 }

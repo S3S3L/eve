@@ -13,7 +13,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.s3s3l.eve.model.enumetrations.esi.EnumOrderType;
-import com.s3s3l.eve.model.eve.items.Blueprint;
 import com.s3s3l.eve.model.eve.market.Order;
 
 /**
@@ -28,11 +27,9 @@ import com.s3s3l.eve.model.eve.market.Order;
  */
 public interface MarketService {
     
-    void loadItems();
-    
-    void loadBluePrints();
+    BigDecimal getIncome(String regionID, String blueprintID);
 
-    BigDecimal getCost(String regionID, Blueprint blueprint);
+    BigDecimal getCost(String regionID, String blueprintID);
 
-    List<Order> getOrders(String regionID,String typeID, EnumOrderType orderType);
+    List<Order> getOrders(String regionID, String typeID, EnumOrderType orderType);
 }
