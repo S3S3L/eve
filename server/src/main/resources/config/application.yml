@@ -41,8 +41,13 @@ datasource:
   minEvictableIdleTimeMillis: 60000
   logAbandoned: true
   cryptographic: false
+business:
+  watching-regions:
+  - 10000002
+  - 10000006
+  - 10000012
 global:
-  executor-thread-count: 100
+  executor-thread-count: 50
 data:
   rebuild-database: false
   universe:
@@ -183,6 +188,7 @@ esi:
   datasource: tranquility
   retry-count: 3
   total-page-key: X-Pages
+  timeout: 180
   interfaces:
     region:
       path: universe/regions/{region_id}

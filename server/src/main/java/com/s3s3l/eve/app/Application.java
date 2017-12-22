@@ -34,7 +34,6 @@ import org.springframework.context.annotation.ComponentScan;
 import com.s3s3l.eve.annotation.Primary;
 import com.s3s3l.eve.configuration.DatasourceConfiguration;
 import com.s3s3l.eve.service.CommonService;
-import com.s3s3l.eve.service.EsiUniverseService;
 import com.s3s3l.jdbc.bind.annotation.Column;
 import com.s3s3l.jdbc.bind.annotation.SqlModel;
 import com.s3s3l.utils.file.FileUtil;
@@ -70,12 +69,11 @@ public class Application extends ContextIdApplicationContextInitializer {
         DatasourceConfiguration datasourceConfiguration = ctx.getBean(DatasourceConfiguration.class);
 
         initHSQLDB(datasourceConfiguration.isRebuildDatabase());
-        ctx.getBean(EsiUniverseService.class)
-                .loadUniverse();
 
         CommonService commonService = ctx.getBean(CommonService.class);
         commonService.loadItems();
         commonService.loadBluePrints();
+
         logger.info("Started.");
     }
 

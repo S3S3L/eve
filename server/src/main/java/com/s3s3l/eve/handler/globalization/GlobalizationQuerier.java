@@ -7,7 +7,7 @@
  * 
 */  
   
-package com.s3s3l.eve.handler;
+package com.s3s3l.eve.handler.globalization;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.s3s3l.eve.model.enumetrations.esi.EnumLanguage;

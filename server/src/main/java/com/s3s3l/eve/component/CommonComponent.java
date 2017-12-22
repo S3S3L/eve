@@ -9,6 +9,7 @@
 
 package com.s3s3l.eve.component;
 
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -26,13 +27,14 @@ import org.springframework.stereotype.Component;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.s3s3l.data.ObjectSerializer;
 import com.s3s3l.data.cache.CacheHelper;
 import com.s3s3l.data.cache.RedisCacheChecker;
 import com.s3s3l.data.cache.caffeine.CaffeineCacheHelper;
 import com.s3s3l.eve.configuration.ESIConfiguration;
 import com.s3s3l.eve.configuration.GlobalConfiguration;
-import com.s3s3l.eve.handler.GlobalizationHelper;
-import com.s3s3l.eve.handler.PaginRequestHelper;
+import com.s3s3l.eve.handler.globalization.GlobalizationHelper;
+import com.s3s3l.eve.handler.pagin.PaginRequestHelper;
 import com.s3s3l.http.HttpUtil;
 import com.s3s3l.redis.JedisUtil;
 import com.s3s3l.redis.RedisHandler;
@@ -61,11 +63,13 @@ import redis.clients.jedis.JedisPoolConfig;
 @Component
 public class CommonComponent {
 
+    @Primary
     @Bean
     public HttpUtil httpUtil(ESIConfiguration esiConfiguration) {
         OkHttpClient client = new OkHttpClient();
-        client.setConnectTimeout(20, TimeUnit.SECONDS);
-        client.setReadTimeout(20, TimeUnit.SECONDS);
+        client.setConnectTimeout(esiConfiguration.getTimeout(), TimeUnit.SECONDS);
+        client.setReadTimeout(esiConfiguration.getTimeout(), TimeUnit.SECONDS);
+        client.setWriteTimeout(esiConfiguration.getTimeout(), TimeUnit.SECONDS);
         client.interceptors()
                 .add((chain) -> {
                     Request request = chain.request();
@@ -74,6 +78,32 @@ public class CommonComponent {
                     AtomicInteger retryCount = new AtomicInteger();
                     while (response != null && !response.isSuccessful()
                             && retryCount.getAndIncrement() < esiConfiguration.getRetryCount()) {
+                        response.body()
+                                .close();
+                        response = chain.proceed(request);
+                    }
+                    return response;
+                });
+        return new HttpUtil(client);
+    }
+
+    @Bean("ssoHttpUtil")
+    public HttpUtil ssoHttpUtil(ESIConfiguration esiConfiguration) {
+        OkHttpClient client = new OkHttpClient();
+        client.setConnectTimeout(esiConfiguration.getTimeout(), TimeUnit.SECONDS);
+        client.setReadTimeout(esiConfiguration.getTimeout(), TimeUnit.SECONDS);
+        client.setWriteTimeout(esiConfiguration.getTimeout(), TimeUnit.SECONDS);
+        client.setFollowRedirects(false);
+        client.interceptors()
+                .add((chain) -> {
+                    Request request = chain.request();
+
+                    Response response = chain.proceed(request);
+                    AtomicInteger retryCount = new AtomicInteger();
+                    while (response != null && !response.isSuccessful()
+                            && retryCount.getAndIncrement() < esiConfiguration.getRetryCount()) {
+                        response.body()
+                                .close();
                         response = chain.proceed(request);
                     }
                     return response;
@@ -124,7 +154,8 @@ public class CommonComponent {
         return new CaffeineCacheHelper<String, Object>(() -> {
             return Caffeine.newBuilder()
                     .build(key -> {
-                        return redis.get(key);
+                        return ObjectSerializer.desrialize(redis.get(key)
+                                .getBytes(StandardCharsets.UTF_8));
                     });
         }, new RedisCacheChecker(redis));
     }
@@ -145,8 +176,8 @@ public class CommonComponent {
     }
 
     @Bean
-    public PaginRequestHelper paginRequestHelper(ESIConfiguration esiConfiguration) {
-        return new PaginRequestHelper(esiConfiguration);
+    public PaginRequestHelper paginRequestHelper(ESIConfiguration esiConfiguration, TaskExecutor taskExecutor) {
+        return new PaginRequestHelper(esiConfiguration, taskExecutor);
     }
 
     private JedisPool getJedisPool(RedisProperties redisProp) {

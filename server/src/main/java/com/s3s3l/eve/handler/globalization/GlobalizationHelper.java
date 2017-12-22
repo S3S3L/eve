@@ -7,7 +7,7 @@
  * 
 */
 
-package com.s3s3l.eve.handler;
+package com.s3s3l.eve.handler.globalization;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

@@ -39,6 +39,7 @@ public class ESIConfiguration {
     private EnumDatasource datasource;
     private int retryCount;
     private String totalPageKey;
+    private long timeout;
 
     public static class Interfaces {
         private HttpInterface region;
@@ -178,5 +179,13 @@ public class ESIConfiguration {
 
     public void setTotalPageKey(String totalPageKey) {
         this.totalPageKey = totalPageKey;
+    }
+
+    public long getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(long timeout) {
+        this.timeout = timeout;
     }
 }

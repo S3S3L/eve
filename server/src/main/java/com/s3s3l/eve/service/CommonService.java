@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import com.s3s3l.common.bean.verify.Examine;
 import com.s3s3l.eve.model.eve.items.Blueprint;
 import com.s3s3l.eve.model.eve.items.Type;
 
@@ -34,9 +35,11 @@ public interface CommonService {
 
     List<Type> getType(@Nonnull Type type);
 
+    @Examine
     Type getTypeDetail(@Nonnull String typeID);
 
     List<Blueprint> getBlueprint(@Nonnull Blueprint blueprint);
 
+    @Examine
     Blueprint getBlueprintDetail(@Nonnull String blueprintTypeID);
 }

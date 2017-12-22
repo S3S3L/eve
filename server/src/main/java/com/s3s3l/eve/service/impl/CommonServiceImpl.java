@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.s3s3l.data.cache.CacheHelper;
 import com.s3s3l.eve.configuration.DatasourceConfiguration;
-import com.s3s3l.eve.handler.GlobalizationHelper;
+import com.s3s3l.eve.handler.globalization.GlobalizationHelper;
 import com.s3s3l.eve.model.enumetrations.eve.EnumCacheScope;
 import com.s3s3l.eve.model.enumetrations.eve.EnumGlobalizationType;
 import com.s3s3l.eve.model.eve.GlobalizationTable;

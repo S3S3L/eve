@@ -9,11 +9,13 @@
 
 package com.s3s3l.eve.service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
+import com.s3s3l.common.bean.verify.Examine;
 import com.s3s3l.eve.model.enumetrations.esi.EnumOrderType;
+import com.s3s3l.eve.model.eve.market.BlueprintTradeInfo;
 import com.s3s3l.eve.model.eve.market.Order;
+import com.s3s3l.eve.model.eve.market.TradeInfo;
 
 /**
  * <p>
@@ -26,10 +28,26 @@ import com.s3s3l.eve.model.eve.market.Order;
  * @since JDK 1.8
  */
 public interface MarketService {
-    
-    BigDecimal getIncome(String regionID, String blueprintID);
 
-    BigDecimal getCost(String regionID, String blueprintID);
+    @Examine
+    TradeInfo getIncome(String regionID, String blueprintID);
 
+    @Examine
+    TradeInfo getCost(String regionID, String blueprintID);
+
+    @Examine
     List<Order> getOrders(String regionID, String typeID, EnumOrderType orderType);
+
+    @Examine
+    BlueprintTradeInfo getBlueprintTradInfo(String regionID, String blueprintID);
+
+    @Examine
+    List<BlueprintTradeInfo> getBlueprintTradInfoByRegion(String regionID);
+
+    @Examine
+    List<BlueprintTradeInfo> getBlueprintTradInfoByBlueprint(String blueprintID);
+    
+    @Examine
+    List<BlueprintTradeInfo> mostValuableBlueprint(String regionID, Long limit);
+    
 }

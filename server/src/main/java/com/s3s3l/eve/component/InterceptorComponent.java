@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.s3s3l.eve.handler.LogInterceptor;
+import com.s3s3l.eve.handler.interceptor.LogInterceptor;
 
 /**
  * <p>

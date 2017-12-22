@@ -50,6 +50,7 @@ public class SSOServiceImpl implements SSOService {
     @Autowired
     private SSOConfiguration ssoConfiguration;
     @Autowired
+    @Qualifier("ssoHttpUtil")
     private HttpUtil http;
     @Autowired
     @Qualifier("expireCache")

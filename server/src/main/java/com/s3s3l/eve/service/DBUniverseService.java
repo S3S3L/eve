@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import com.s3s3l.common.bean.verify.Examine;
 import com.s3s3l.eve.model.eve.universe.Moon;
 import com.s3s3l.eve.model.eve.universe.Planet;
 import com.s3s3l.eve.model.eve.universe.Region;
@@ -44,16 +45,22 @@ public interface DBUniverseService {
     
     List<Star> getStar(@Nonnull Star condition);
 
+    @Examine
     Region getRegionDetail(@Nonnull String regionID);
 
+    @Examine
     Constellation getConstellationDetail(@Nonnull String constellationID);
 
+    @Examine
     SolarSystem getSolarSystemDetail(@Nonnull String solarSystemID);
-    
+
+    @Examine
     Planet getPlanetDetail(@Nonnull String planetID);
-    
+
+    @Examine
     Moon getMoonDetail(@Nonnull String moonID);
-    
+
+    @Examine
     Star getStarDetail(@Nonnull String starID);
 
 }

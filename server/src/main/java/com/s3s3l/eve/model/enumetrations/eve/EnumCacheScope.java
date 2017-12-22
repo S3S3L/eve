@@ -20,5 +20,5 @@ package com.s3s3l.eve.model.enumetrations.eve;
  * @since JDK 1.8
  */
 public enum EnumCacheScope {
-    Region, Constellation, SolarSystem, Planet, Moon, Star, Type, Blueprint;
+    Region, Constellation, SolarSystem, Planet, Moon, Star, Type, Blueprint, Business;
 }

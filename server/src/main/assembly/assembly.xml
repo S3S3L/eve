@@ -43,9 +43,9 @@
                 <include>log4j2.yml</include>
             </includes>
         </fileSet>
-        <fileSet>
+        <!-- <fileSet>
         	<directory>eve_data</directory>
             <outputDirectory>.</outputDirectory>
-        </fileSet>
+        </fileSet> -->
     </fileSets>
 </assembly>
