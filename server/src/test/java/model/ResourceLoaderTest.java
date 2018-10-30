@@ -3,7 +3,7 @@
  * File Name:ResourceLoaderTest.java 
  * Package Name:model 
  * Date:Sep 15, 20174:40:54 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */
 

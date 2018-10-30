@@ -3,7 +3,7 @@
  * File Name:TradeInfo.java 
  * Package Name:com.s3s3l.eve.model.eve.market 
  * Date:Oct 17, 20172:01:31 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */
 

@@ -3,7 +3,7 @@
  * File Name:DataSourceConfiguration.java 
  * Package Name:com.s3s3l.eve.configuration 
  * Date:Sep 15, 20175:08:28 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */
 

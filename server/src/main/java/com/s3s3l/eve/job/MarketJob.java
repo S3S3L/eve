@@ -3,7 +3,7 @@
  * File Name:MarketJob.java 
  * Package Name:com.s3s3l.eve.job 
  * Date:Oct 17, 20175:34:12 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */
 

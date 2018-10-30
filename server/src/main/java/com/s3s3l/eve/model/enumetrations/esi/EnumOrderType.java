@@ -3,7 +3,7 @@
  * File Name:EnumOrderType.java 
  * Package Name:com.s3s3l.eve.model.enumetrations.esi 
  * Date:Oct 12, 20172:37:17 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */
 

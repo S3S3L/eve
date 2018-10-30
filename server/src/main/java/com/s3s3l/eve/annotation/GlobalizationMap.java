@@ -3,7 +3,7 @@
  * File Name:Globalization.java 
  * Package Name:com.s3s3l.eve.annotation 
  * Date:Sep 30, 201711:28:46 AM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */
 

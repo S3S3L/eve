@@ -3,7 +3,7 @@
  * File Name:Start.java 
  * Package Name:com.s3s3l.eve.model.eve.universe 
  * Date:Sep 30, 20172:10:59 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */
 

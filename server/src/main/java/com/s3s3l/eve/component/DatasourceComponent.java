@@ -3,7 +3,7 @@
  * File Name:DatasourceComponent.java 
  * Package Name:com.s3s3l.eve.component 
  * Date:Oct 9, 20171:36:40 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */  
   

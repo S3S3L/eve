@@ -3,7 +3,7 @@
  * File Name:RegionInfo.java 
  * Package Name:com.s3s3l.eve.model.eve.universe 
  * Date:Sep 29, 20175:53:59 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */
 

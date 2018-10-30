@@ -3,7 +3,7 @@
  * File Name:PlanetAttributes.java 
  * Package Name:com.s3s3l.eve.model.eve.universe 
  * Date:Sep 30, 20171:49:34 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */
 

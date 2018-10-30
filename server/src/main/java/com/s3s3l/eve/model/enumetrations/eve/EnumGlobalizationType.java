@@ -3,7 +3,7 @@
  * File Name:EnumGlobalizationType.java 
  * Package Name:com.s3s3l.eve.model.enumetrations.eve 
  * Date:Oct 11, 20171:33:13 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */
 

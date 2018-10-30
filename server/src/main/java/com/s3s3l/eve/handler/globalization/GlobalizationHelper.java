@@ -3,7 +3,7 @@
  * File Name:GlobalizationHelper.java 
  * Package Name:com.s3s3l.eve.handler 
  * Date:Sep 30, 20171:01:07 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */
 

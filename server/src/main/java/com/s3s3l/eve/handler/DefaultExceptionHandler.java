@@ -3,7 +3,7 @@
  * File Name:DefaultExceptionHandler.java 
  * Package Name:com.s3s3l.eve.handler 
  * Date:Sep 7, 20174:17:04 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */
 

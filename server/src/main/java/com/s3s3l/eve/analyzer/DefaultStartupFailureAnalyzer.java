@@ -1,12 +1,3 @@
-/** 
- * Project Name:common-utils 
- * File Name:DefaultStartupFailureAnalyzer.java 
- * Package Name:com.hellobike.tesla.utils.analyzer 
- * Date:Mar 30, 20175:10:10 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
- * 
-*/
-
 package com.s3s3l.eve.analyzer;
 
 import org.slf4j.Logger;

@@ -3,7 +3,7 @@
  * File Name:EnumVersion.java 
  * Package Name:com.s3s3l.eve.model.enumetrations 
  * Date:Sep 29, 20176:51:37 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */
 

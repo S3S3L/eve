@@ -3,7 +3,7 @@
  * File Name:GlobalizationResult.java 
  * Package Name:com.s3s3l.eve.model.result 
  * Date:Sep 30, 201711:03:49 AM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */
 

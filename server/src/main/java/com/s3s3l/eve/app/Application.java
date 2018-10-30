@@ -3,7 +3,7 @@
  * File Name:Application.java 
  * Package Name:com.s3s3l.eve.app 
  * Date:Aug 30, 20175:04:33 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */
 

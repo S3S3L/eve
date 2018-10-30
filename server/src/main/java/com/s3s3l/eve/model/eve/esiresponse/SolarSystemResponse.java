@@ -3,7 +3,7 @@
  * File Name:SolarSystemResponse.java 
  * Package Name:com.s3s3l.eve.model.eve.esiresponse 
  * Date:Sep 30, 20173:49:17 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */
 

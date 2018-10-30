@@ -3,7 +3,7 @@
  * File Name:LogInterceptor.java 
  * Package Name:com.s3s3l.eve.handler 
  * Date:Oct 12, 20177:27:38 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */
 

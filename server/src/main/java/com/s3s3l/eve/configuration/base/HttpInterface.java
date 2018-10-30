@@ -3,7 +3,7 @@
  * File Name:HttpInterface.java 
  * Package Name:com.s3s3l.eve.configuration.base 
  * Date:Sep 29, 20173:53:29 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */  
   

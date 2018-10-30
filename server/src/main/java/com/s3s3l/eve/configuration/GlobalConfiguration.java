@@ -3,7 +3,7 @@
  * File Name:GlobalConfiguration.java 
  * Package Name:com.s3s3l.eve.configuration 
  * Date:Oct 13, 20176:57:34 PM 
- * Copyright (c) 2017, kehewei@hellobike.com All Rights Reserved. 
+ * Copyright (c) 2017, kehw.zwei@gmail.com All Rights Reserved. 
  * 
 */  
   
